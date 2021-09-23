@@ -7,6 +7,7 @@ import com.dima.effective.item2.hierarchicalbuilder.NyPizza;
 import com.dima.effective.item2.hierarchicalbuilder.Pizza;
 import com.dima.effective.item3.lazylaod.LazySingleton;
 import com.dima.effective.item3.staticfactory.Elvis;
+import com.dima.effective.item4.UtilityItem;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
