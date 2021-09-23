@@ -7,7 +7,10 @@ import com.dima.effective.item2.hierarchicalbuilder.NyPizza;
 import com.dima.effective.item2.hierarchicalbuilder.Pizza;
 import com.dima.effective.item3.lazylaod.LazySingleton;
 import com.dima.effective.item3.staticfactory.Elvis;
+import com.dima.effective.item5.simple.SpellChecker;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Arrays;
 
 @Slf4j
 public class EffectiveSecondChapterApplication {
@@ -49,6 +52,14 @@ public class EffectiveSecondChapterApplication {
         }
         if (LazySingleton.getInstance() != null) {
             log.info("LazySingleton correct");
+        }
+        log.info("Item 5");
+        if (SpellChecker.isValid("fire")) {
+            log.info("SpellChecker.isValid correct");
+        }
+
+        if (!Arrays.asList("fire").containsAll(SpellChecker.suggestion("valid"))) {
+            log.info("SpellChecker.suggestion(\"valid\") correct");
         }
     }
 }
