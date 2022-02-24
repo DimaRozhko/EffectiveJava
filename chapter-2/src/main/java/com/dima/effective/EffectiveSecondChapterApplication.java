@@ -7,6 +7,7 @@ import com.dima.effective.item2.hierarchicalbuilder.NyPizza;
 import com.dima.effective.item2.hierarchicalbuilder.Pizza;
 import com.dima.effective.item3.lazylaod.LazySingleton;
 import com.dima.effective.item3.staticfactory.Elvis;
+import com.dima.effective.item4.UtilityItem;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -43,12 +44,19 @@ public class EffectiveSecondChapterApplication {
         if (calzone.sauceInstance && calzone.toppings.contains(Pizza.Topping.PEPPER)) {
             log.info("Calzone.Builder correct");
         }
-        log.info("Item 2");
+        log.info("Item 3");
         if (Elvis.getInstance() != null) {
             log.info("Elvis singleton correct");
         }
         if (LazySingleton.getInstance() != null) {
             log.info("LazySingleton correct");
+        }
+        log.info("Item 4");
+        if (!UtilityItem.isCreateObject()) {
+            log.info("CORRECT: object was created");
+        }
+        else{
+            log.info("INCORRECT: object was created");
         }
     }
 }
