@@ -44,12 +44,19 @@ public class EffectiveSecondChapterApplication {
         if (calzone.sauceInstance && calzone.toppings.contains(Pizza.Topping.PEPPER)) {
             log.info("Calzone.Builder correct");
         }
-        log.info("Item 2");
+        log.info("Item 3");
         if (Elvis.getInstance() != null) {
             log.info("Elvis singleton correct");
         }
         if (LazySingleton.getInstance() != null) {
             log.info("LazySingleton correct");
+        }
+        log.info("Item 4");
+        if (!UtilityItem.isCreateObject()) {
+            log.info("CORRECT: object was created");
+        }
+        else{
+            log.info("INCORRECT: object was created");
         }
     }
 }
