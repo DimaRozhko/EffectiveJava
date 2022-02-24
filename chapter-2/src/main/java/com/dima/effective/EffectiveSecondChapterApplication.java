@@ -8,7 +8,18 @@ import com.dima.effective.item2.hierarchicalbuilder.Pizza;
 import com.dima.effective.item3.lazylaod.LazySingleton;
 import com.dima.effective.item3.staticfactory.Elvis;
 import com.dima.effective.item4.UtilityItem;
+import com.dima.effective.item5.injection.SpellCheckerInjection;
+import com.dima.effective.item5.simple.SpellChecker;
+import com.dima.effective.item5.singletone.SpellCheckerSingleton;
+import com.dima.effective.item5.utility.UtilityLexicon;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static com.dima.effective.item5.constants.Condition.*;
+import static com.dima.effective.item5.constants.Value.*;
+import static com.dima.effective.item5.singletone.SpellCheckerSingleton.getINSTANCE;
 
 @Slf4j
 public class EffectiveSecondChapterApplication {
@@ -57,6 +68,47 @@ public class EffectiveSecondChapterApplication {
         }
         else{
             log.info("INCORRECT: object was created");
+        }
+        log.info("Item 5");
+        log.info("SIMPLE CHECKER");
+        if (SpellChecker.isValid(FIRE)) {
+            log.info("SpellChecker.isValid correct for \"fire\"");
+        }
+        if (!Arrays.asList(FIRE).containsAll(SpellChecker.suggestion(VALID))) {
+            log.info("SpellChecker.suggestion(\"valid\") correct for \"fire\"");
+        }
+        if (!SpellChecker.isValid(GET)) {
+            log.info("SpellChecker.isValid correct for \"get\"");
+        }
+        if (!Arrays.asList(GET).containsAll(SpellChecker.suggestion(NOT_VALID))) {
+            log.info("SpellChecker.suggestion(\"valid\") correct for \"get\"");
+        }
+        log.info("SINGLETON CHECKER");
+        if (SpellCheckerSingleton.getINSTANCE().isValid(FIRE)) {
+            log.info("SpellCheckerSingleton.getINSTANCE().isValid(FIRE) correct for \"fire\"");
+        }
+        if (!SpellCheckerSingleton.getINSTANCE().isValid(GET)) {
+            log.info("SpellCheckerSingleton.getINSTANCE().isValid(GET) correct for \"get\"");
+        }
+        if (SpellCheckerSingleton.getINSTANCE().suggestion(VALID).equals(new ArrayList<String>(Arrays.asList(FIRE, COOKIES)))) {
+            log.info("SpellCheckerSingleton.getINSTANCE().suggestion(VALID) correct [fire, cookies]");
+        }
+        if (SpellCheckerSingleton.getINSTANCE().suggestion(NOT_VALID).equals(new ArrayList<String>(Arrays.asList(GET)))) {
+            log.info("SpellCheckerSingleton.getINSTANCE().suggestion(VALID) correct [get]");
+        }
+        log.info("INJECTION CHECKER");
+        SpellCheckerInjection spellCheckerInjection = new SpellCheckerInjection(UtilityLexicon.dictionaryCreator());
+        if (spellCheckerInjection.isValid(FIRE)) {
+            log.info("spellCheckerInjection.isValid(FIRE) correct for \"fire\"");
+        }
+        if (!spellCheckerInjection.isValid(GET)) {
+            log.info("spellCheckerInjection.isValid(GET) correct for \"get\"");
+        }
+        if (spellCheckerInjection.suggestion(VALID).equals(new ArrayList<String>(Arrays.asList(FIRE, COOKIES)))) {
+            log.info("spellCheckerInjection.suggestion(VALID) correct [fire, cookies]");
+        }
+        if (spellCheckerInjection.suggestion(NOT_VALID).equals(new ArrayList<String>(Arrays.asList(GET)))) {
+            log.info("spellCheckerInjection.suggestion(NOT_VALID) correct [get]");
         }
     }
 }
