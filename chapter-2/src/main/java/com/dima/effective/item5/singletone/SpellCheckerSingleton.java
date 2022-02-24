@@ -1,11 +1,14 @@
 package com.dima.effective.item5.singletone;
 
 import com.dima.effective.item5.utility.UtilityLexicon;
+import lombok.NonNull;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.dima.effective.item5.constants.Condition.VALID;
 
 public class SpellCheckerSingleton {
 
@@ -19,13 +22,11 @@ public class SpellCheckerSingleton {
         return INSTANCE;
     }
 
-    public static boolean isValid(String word) {
-        return INSTANCE.dictionary.get(word).equals("valid");
+    public boolean isValid(String word) {
+        return INSTANCE.dictionary.get(word).equals(VALID);
     }
 
-    public static List<String> suggestion(String typo) {
-        return INSTANCE.dictionary.values().stream()
-                .filter(key -> key.equals(typo))
-                .collect(Collectors.toList());
+    public List<String> suggestion(@NonNull String typo) {
+        return INSTANCE.dictionary.entrySet().stream().filter(x -> typo.equals(x.getValue())).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 }

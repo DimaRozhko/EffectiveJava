@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.dima.effective.item5.constants.Condition.*;
+import static com.dima.effective.item5.constants.Value.*;
+
 public class SpellChecker {
 
     private static final Map<String, String> dictionary = Collections.unmodifiableMap(UtilityLexicon.dictionaryCreator());
@@ -20,8 +23,8 @@ public class SpellChecker {
 
         public static Map<String, String> dictionaryCreator() {
             UtilityLexicon.dictionary = new HashMap<>();
-            UtilityLexicon.dictionary.put("fire", "valid");
-            UtilityLexicon.dictionary.put("get", "not");
+            UtilityLexicon.dictionary.put(FIRE, VALID);
+            UtilityLexicon.dictionary.put(GET, NOT_VALID);
             return UtilityLexicon.dictionary;
         }
 
