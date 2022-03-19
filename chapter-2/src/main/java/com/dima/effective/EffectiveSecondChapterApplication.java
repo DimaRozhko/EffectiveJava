@@ -12,14 +12,16 @@ import com.dima.effective.item5.injection.SpellCheckerInjection;
 import com.dima.effective.item5.simple.SpellChecker;
 import com.dima.effective.item5.singletone.SpellCheckerSingleton;
 import com.dima.effective.item5.utility.UtilityLexicon;
+import com.dima.effective.item9.TryFinallyJavaActual;
+import com.dima.effective.item9.TryFinallyJavaLegacy;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.dima.effective.item5.constants.Condition.*;
 import static com.dima.effective.item5.constants.Value.*;
-import static com.dima.effective.item5.singletone.SpellCheckerSingleton.getINSTANCE;
 
 @Slf4j
 public class EffectiveSecondChapterApplication {
@@ -109,6 +111,37 @@ public class EffectiveSecondChapterApplication {
         }
         if (spellCheckerInjection.suggestion(NOT_VALID).equals(new ArrayList<String>(Arrays.asList(GET)))) {
             log.info("spellCheckerInjection.suggestion(NOT_VALID) correct [get]");
+        }
+        log.info("Item 9");
+        log.info("LEGACY");
+        try {
+            TryFinallyJavaLegacy.firstLineOfFile("");
+            log.info("TryFinallyJavaLegacy.firstLineOfFile(\"\") incorrect");
+        }
+        catch (IOException e) {
+            log.info("TryFinallyJavaLegacy.firstLineOfFile(\"\") correct");
+        }
+        try {
+            TryFinallyJavaLegacy.firstLineOfFile("./pom.xml");
+            log.info("TryFinallyJavaLegacy.firstLineOfFile(\"/pom.xml\") correct");
+        }
+        catch (IOException e) {
+            log.info("TryFinallyJavaLegacy.firstLineOfFile(\"/pom.xml\") incorrect");
+        }
+        log.info("ACTUAL");
+        try {
+            TryFinallyJavaActual.firstLineOfFile("");
+            log.info("TryFinallyJavaActual.firstLineOfFile(\"\") incorrect");
+        }
+        catch (IOException e) {
+            log.info("TryFinallyJavaActual.firstLineOfFile(\"\") correct");
+        }
+        try {
+            TryFinallyJavaActual.firstLineOfFile("./pom.xml");
+            log.info("TryFinallyJavaActual.firstLineOfFile(\"/pom.xml\") correct");
+        }
+        catch (IOException e) {
+            log.info("TryFinallyJavaActual.firstLineOfFile(\"/pom.xml\") incorrect");
         }
     }
 }
