@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class Item3Test {
 
     @Test
-    public void valueOfTrueTest(){
+    public void lazySingletonTest(){
         assertNotEquals(null, LazySingleton.getInstance());
     }
 
     @Test
-    public void valueOfFalseTest(){
+    public void elvisTest(){
         assertNotEquals(null, Elvis.getInstance());
     }
 }
