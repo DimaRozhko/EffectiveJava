@@ -1,8 +1,5 @@
 package com.dima.effective.item5.injection;
 
-import com.dima.effective.item5.utility.UtilityLexicon;
-
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
