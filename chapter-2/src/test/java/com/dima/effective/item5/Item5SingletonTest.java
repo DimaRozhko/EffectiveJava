@@ -1,7 +1,6 @@
 package com.dima.effective.item5;
 
 import com.dima.effective.item5.constants.Value;
-import com.dima.effective.item5.simple.SpellChecker;
 import com.dima.effective.item5.singletone.SpellCheckerSingleton;
 import org.junit.Test;
 
