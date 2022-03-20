@@ -29,119 +29,106 @@ public class EffectiveSecondChapterApplication {
     public static void main(String[] args) {
         log.info("CHAPTER 2");
         log.info("Item 1");
-        if (Primitive.valueOf(true) == Boolean.TRUE) {
-            log.info("Primitive.valueOf correct");
-        }
-        else {
-            log.error("Primitive.valueOf incorrect");
+        if (Primitive.valueOf(true) != Boolean.TRUE) {
+            throw new AssertionError("Primitive.valueOf incorrect");
         }
         NutritionFacts nutritionFacts = new NutritionFacts.Builder(12, 33).setFat(189)
                 .setCalories(659).setCalories(6).build();
         log.info("Item 2");
-        if (nutritionFacts.getServingSize() == 12 && nutritionFacts.getServings() == 33
+        if (!(nutritionFacts.getServingSize() == 12 && nutritionFacts.getServings() == 33
                 && nutritionFacts.getFat() == 189 && nutritionFacts.getCalories() == 6
-                && nutritionFacts.getCarbohydrate() == 0 && nutritionFacts.getSodium() == 0) {
-            log.info("NutritionFacts.Builder correct");
-        }
-        else {
-            log.error("NutritionFacts.Builder incorrect");
+                && nutritionFacts.getCarbohydrate() == 0 && nutritionFacts.getSodium() == 0)) {
+            throw new AssertionError("NutritionFacts.Builder incorrect");
         }
         NyPizza nyPizza = new NyPizza.Builder(NyPizza.Size.MEDIUM)
                 .addTopping(Pizza.Topping.MUSHROOM).build();
-        if (nyPizza.size.equals(NyPizza.Size.MEDIUM) &&
-                nyPizza.toppings.contains(Pizza.Topping.MUSHROOM)) {
-            log.info("NyPizza.Builder correct");
+        if (!(nyPizza.size.equals(NyPizza.Size.MEDIUM) &&
+                nyPizza.toppings.contains(Pizza.Topping.MUSHROOM))) {
+            throw new AssertionError("NyPizza.Builder incorrect");
         }
         Calzone calzone = new Calzone.Builder().
                 sauceInstance().addTopping(Pizza.Topping.PEPPER).build();
-        if (calzone.sauceInstance && calzone.toppings.contains(Pizza.Topping.PEPPER)) {
-            log.info("Calzone.Builder correct");
+        if (!(calzone.sauceInstance && calzone.toppings.contains(Pizza.Topping.PEPPER))) {
+            throw new AssertionError("Calzone.Builder incorrect");
         }
         log.info("Item 3");
-        if (Elvis.getInstance() != null) {
-            log.info("Elvis singleton correct");
+        if (Elvis.getInstance() == null) {
+            throw new AssertionError("Elvis singleton incorrect");
         }
-        if (LazySingleton.getInstance() != null) {
-            log.info("LazySingleton correct");
+        if (LazySingleton.getInstance() == null) {
+            throw new AssertionError("LazySingleton incorrect");
         }
         log.info("Item 4");
-        if (!UtilityItem.isCreateObject()) {
-            log.info("CORRECT: object was created");
-        }
-        else{
-            log.info("INCORRECT: object was created");
+        if (UtilityItem.isCreateObject()) {
+            throw new AssertionError("INCORRECT: object was created");
         }
         log.info("Item 5");
         log.info("SIMPLE CHECKER");
-        if (SpellChecker.isValid(FIRE)) {
-            log.info("SpellChecker.isValid correct for \"fire\"");
+        if (!SpellChecker.isValid(FIRE)) {
+            throw new AssertionError("SpellChecker.isValid incorrect for \"fire\"");
         }
-        if (!Arrays.asList(FIRE).containsAll(SpellChecker.suggestion(VALID))) {
-            log.info("SpellChecker.suggestion(\"valid\") correct for \"fire\"");
+        if (Arrays.asList(FIRE).containsAll(SpellChecker.suggestion(VALID))) {
+            throw new AssertionError("SpellChecker.suggestion(\"valid\") incorrect for \"fire\"");
         }
-        if (!SpellChecker.isValid(GET)) {
-            log.info("SpellChecker.isValid correct for \"get\"");
+        if (SpellChecker.isValid(GET)) {
+            throw new AssertionError("SpellChecker.isValid incorrect for \"get\"");
         }
-        if (Arrays.asList(GET).containsAll(SpellChecker.suggestion(NOT_VALID))) {
-            log.info("SpellChecker.suggestion(\"valid\") correct for \"get\"");
+        if (!Arrays.asList(GET).containsAll(SpellChecker.suggestion(NOT_VALID))) {
+            throw new AssertionError("SpellChecker.suggestion(\"valid\") incorrect for \"get\"");
         }
         log.info("SINGLETON CHECKER");
-        if (SpellCheckerSingleton.getINSTANCE().isValid(FIRE)) {
-            log.info("SpellCheckerSingleton.getINSTANCE().isValid(FIRE) correct for \"fire\"");
+        if (!SpellCheckerSingleton.getINSTANCE().isValid(FIRE)) {
+            throw new AssertionError("SpellCheckerSingleton.getINSTANCE().isValid(FIRE) incorrect for \"fire\"");
         }
-        if (!SpellCheckerSingleton.getINSTANCE().isValid(GET)) {
-            log.info("SpellCheckerSingleton.getINSTANCE().isValid(GET) correct for \"get\"");
+        if (SpellCheckerSingleton.getINSTANCE().isValid(GET)) {
+            throw new AssertionError("SpellCheckerSingleton.getINSTANCE().isValid(GET) incorrect for \"get\"");
         }
-        if (SpellCheckerSingleton.getINSTANCE().suggestion(VALID).equals(new ArrayList<String>(Arrays.asList(FIRE, COOKIES)))) {
-            log.info("SpellCheckerSingleton.getINSTANCE().suggestion(VALID) correct [fire, cookies]");
+        if (!SpellCheckerSingleton.getINSTANCE().suggestion(VALID).equals(new ArrayList<String>(Arrays.asList(FIRE, COOKIES)))) {
+            throw new AssertionError("SpellCheckerSingleton.getINSTANCE().suggestion(VALID) incorrect [fire, cookies]");
         }
-        if (SpellCheckerSingleton.getINSTANCE().suggestion(NOT_VALID).equals(new ArrayList<String>(Arrays.asList(GET)))) {
-            log.info("SpellCheckerSingleton.getINSTANCE().suggestion(VALID) correct [get]");
+        if (!SpellCheckerSingleton.getINSTANCE().suggestion(NOT_VALID).equals(new ArrayList<String>(Arrays.asList(GET)))) {
+            throw new AssertionError("SpellCheckerSingleton.getINSTANCE().suggestion(VALID) incorrect [get]");
         }
         log.info("INJECTION CHECKER");
         SpellCheckerInjection spellCheckerInjection = new SpellCheckerInjection(UtilityLexicon.dictionaryCreator());
-        if (spellCheckerInjection.isValid(FIRE)) {
-            log.info("spellCheckerInjection.isValid(FIRE) correct for \"fire\"");
+        if (!spellCheckerInjection.isValid(FIRE)) {
+            throw new AssertionError("spellCheckerInjection.isValid(FIRE) incorrect for \"fire\"");
         }
-        if (!spellCheckerInjection.isValid(GET)) {
-            log.info("spellCheckerInjection.isValid(GET) correct for \"get\"");
+        if (spellCheckerInjection.isValid(GET)) {
+            throw new AssertionError("spellCheckerInjection.isValid(GET) incorrect for \"get\"");
         }
-        if (spellCheckerInjection.suggestion(VALID).equals(new ArrayList<String>(Arrays.asList(FIRE, COOKIES)))) {
-            log.info("spellCheckerInjection.suggestion(VALID) correct [fire, cookies]");
+        if (!spellCheckerInjection.suggestion(VALID).equals(new ArrayList<String>(Arrays.asList(FIRE, COOKIES)))) {
+            throw new AssertionError("spellCheckerInjection.suggestion(VALID) incorrect [fire, cookies]");
         }
-        if (spellCheckerInjection.suggestion(NOT_VALID).equals(new ArrayList<String>(Arrays.asList(GET)))) {
-            log.info("spellCheckerInjection.suggestion(NOT_VALID) correct [get]");
+        if (!spellCheckerInjection.suggestion(NOT_VALID).equals(new ArrayList<String>(Arrays.asList(GET)))) {
+            throw new AssertionError("spellCheckerInjection.suggestion(NOT_VALID) incorrect [get]");
         }
         log.info("Item 9");
         log.info("LEGACY");
         try {
             TryFinallyJavaLegacy.firstLineOfFile("");
-            log.info("TryFinallyJavaLegacy.firstLineOfFile(\"\") incorrect");
+            throw new AssertionError("TryFinallyJavaLegacy.firstLineOfFile(\"\") incorrect");
         }
         catch (IOException e) {
-            log.info("TryFinallyJavaLegacy.firstLineOfFile(\"\") correct");
         }
         try {
             TryFinallyJavaLegacy.firstLineOfFile("./pom.xml");
-            log.info("TryFinallyJavaLegacy.firstLineOfFile(\"/pom.xml\") correct");
         }
         catch (IOException e) {
-            log.info("TryFinallyJavaLegacy.firstLineOfFile(\"/pom.xml\") incorrect");
+            throw new AssertionError("TryFinallyJavaLegacy.firstLineOfFile(\"/pom.xml\") incorrect");
         }
         log.info("ACTUAL");
         try {
             TryFinallyJavaActual.firstLineOfFile("");
-            log.info("TryFinallyJavaActual.firstLineOfFile(\"\") incorrect");
+            throw new AssertionError("TryFinallyJavaActual.firstLineOfFile(\"\") incorrect");
         }
         catch (IOException e) {
-            log.info("TryFinallyJavaActual.firstLineOfFile(\"\") correct");
         }
         try {
             TryFinallyJavaActual.firstLineOfFile("./pom.xml");
-            log.info("TryFinallyJavaActual.firstLineOfFile(\"/pom.xml\") correct");
         }
         catch (IOException e) {
-            log.info("TryFinallyJavaActual.firstLineOfFile(\"/pom.xml\") incorrect");
+            throw new AssertionError("TryFinallyJavaActual.firstLineOfFile(\"/pom.xml\") incorrect");
         }
     }
 }
