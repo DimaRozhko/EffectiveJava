@@ -25,6 +25,7 @@ public class SpellChecker {
             UtilityLexicon.dictionary = new HashMap<>();
             UtilityLexicon.dictionary.put(FIRE, VALID);
             UtilityLexicon.dictionary.put(GET, NOT_VALID);
+            UtilityLexicon.dictionary.put(COOKIES, VALID);
             return UtilityLexicon.dictionary;
         }
 
@@ -33,12 +34,10 @@ public class SpellChecker {
     private SpellChecker() {}
 
     public static boolean isValid(String word) {
-        return dictionary.get(word).equals("valid");
+        return dictionary.get(word).equals(VALID);
     }
 
     public static List<String> suggestion(String typo) {
-        return dictionary.values().stream()
-                .filter(key -> key.equals(typo))
-                .collect(Collectors.toList());
+        return dictionary.entrySet().stream().filter(x -> typo.equals(x.getValue())).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 }

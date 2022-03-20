@@ -82,7 +82,7 @@ public class EffectiveSecondChapterApplication {
         if (!SpellChecker.isValid(GET)) {
             log.info("SpellChecker.isValid correct for \"get\"");
         }
-        if (!Arrays.asList(GET).containsAll(SpellChecker.suggestion(NOT_VALID))) {
+        if (Arrays.asList(GET).containsAll(SpellChecker.suggestion(NOT_VALID))) {
             log.info("SpellChecker.suggestion(\"valid\") correct for \"get\"");
         }
         log.info("SINGLETON CHECKER");
